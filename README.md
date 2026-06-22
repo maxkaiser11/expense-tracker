@@ -7,6 +7,7 @@ A simple command-line expense tracker written in Go. Add, list, delete, and summ
 - Add an expense with a description and amount (the date is recorded automatically)
 - List all expenses in a clean, boxed table
 - Delete an expense by its ID
+- Edit an expense by its ID
 - Get a total summary, optionally filtered by month
 
 ## Requirements
@@ -47,6 +48,12 @@ This produces an `expense-tracker` binary in the current directory. You can also
 
 ```bash
 ./expense-tracker delete --id 1
+```
+
+### Edit an expense
+
+```bash
+./expense-tracker edit --id 1 --desc "Lunch" --amount 100
 ```
 
 ### Summary
