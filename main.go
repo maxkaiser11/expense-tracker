@@ -13,7 +13,7 @@ type Expense struct {
 	ID          int       `json:"id"`
 	Date        time.Time `json:"date"`
 	Description string    `json:"description"`
-	Amount      int       `json:"amount"`
+	Amount      float64   `json:"amount"`
 }
 
 func getExpenses() []Expense {
@@ -50,8 +50,9 @@ Usage:
   expense-tracker <command> [flags]
 
 Commands:
-  add       Add an expense          --description <text> --amount <number>
+  add       Add an expense          --desc <text> --amount <number>
   delete    Delete an expense       --id <id>
+  edit      Edit an expense         --id <id> --desc <text> --amount <number>
   list      List all expenses
   summary   Show total              [--month <1-12>]
   help      Show this help
@@ -72,7 +73,7 @@ func main() {
 	case "add":
 		// NOTE: Add Logic
 		addCmd := flag.NewFlagSet("add", flag.ExitOnError)
-		description := addCmd.String("description", "", "expense description")
+		description := addCmd.String("desc", "", "expense description")
 		amount := addCmd.Float64("amount", 0, "expense amount")
 
 		// parse everything after "add"
@@ -90,7 +91,7 @@ func main() {
 			ID:          maxID + 1,
 			Date:        time.Now(),
 			Description: *description,
-			Amount:      int(*amount),
+			Amount:      *amount,
 		})
 		saveExpenses(expenses)
 
@@ -138,7 +139,7 @@ func main() {
 		summaryCmd.Parse(os.Args[2:])
 		expenses := getExpenses()
 
-		sum := 0
+		sum := 0.0
 		for _, v := range expenses {
 			if *specificMonth == 0 || int(v.Date.Month()) == *specificMonth {
 				sum += v.Amount
@@ -153,6 +154,22 @@ func main() {
 
 	case "edit":
 		// TODO: Add edit logic
+		editCmd := flag.NewFlagSet("edit", flag.ExitOnError)
+		targetID := editCmd.Int("id", 0, "which id to edit")
+		targetDesc := editCmd.String("desc", "", "description")
+		targetAmount := editCmd.Float64("amount", 0, "amount")
+		editCmd.Parse(os.Args[2:])
+
+		expenses := getExpenses()
+
+		for i := range expenses {
+			if expenses[i].ID == *targetID {
+				expenses[i].Description = *targetDesc
+				expenses[i].Amount = *targetAmount
+			}
+		}
+
+		saveExpenses(expenses)
 
 	default:
 		fmt.Printf("unknown subcommand: %s\n", os.Args[1])

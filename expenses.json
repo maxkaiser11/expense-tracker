@@ -2,13 +2,19 @@
  {
   "id": 1,
   "date": "2026-06-22T17:00:32.8213864+02:00",
-  "description": "garmin scale",
-  "amount": 104
+  "description": "new car",
+  "amount": 34000
  },
  {
   "id": 3,
   "date": "2026-01-22T17:00:32.8213864+02:00",
   "description": "garmin scale",
   "amount": 6000
+ },
+ {
+  "id": 4,
+  "date": "2026-06-22T17:42:05.658578+02:00",
+  "description": "car",
+  "amount": 123
  }
 ]
