@@ -43,6 +43,22 @@ func saveExpenses(expenses []Expense) {
 	}
 }
 
+func usage() {
+	fmt.Println(`Expense Tracker - track your expenses from the command line
+
+Usage:
+  expense-tracker <command> [flags]
+
+Commands:
+  add       Add an expense          --description <text> --amount <number>
+  delete    Delete an expense       --id <id>
+  list      List all expenses
+  summary   Show total              [--month <1-12>]
+  help      Show this help
+
+Run "expense-tracker <command> --help" for flags on a specific command.`)
+}
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Exptected a subcommand")
@@ -50,6 +66,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "help", "-h", "--help":
+		usage()
+
 	case "add":
 		// NOTE: Add Logic
 		addCmd := flag.NewFlagSet("add", flag.ExitOnError)
