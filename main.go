@@ -123,15 +123,15 @@ func main() {
 	case "list":
 		// NOTE: Consider using text/tabwriter package if description become too long
 		expenses := getExpenses()
-		fmt.Println("┌──────┬────────────┬──────────────────────────────┬────────────┐")
-		fmt.Printf("│ %-4s │ %-10s │ %-28s │ %-10s │\n", "ID", "Date", "Description", "Amount")
-		fmt.Println("├──────┼────────────┼──────────────────────────────┼────────────┤")
+		fmt.Println("┌──────┬────────────┬──────────────────────────────┬──────────────┐")
+		fmt.Printf("│ %-4s │ %-10s │ %-28s │ %-12s │\n", "ID", "Date", "Description", "Amount")
+		fmt.Println("├──────┼────────────┼──────────────────────────────┼──────────────┤")
 		for _, v := range expenses {
-			amount := fmt.Sprintf("%d CHF", v.Amount)
-			fmt.Printf("│ %-4d │ %-10s │ %-28s │ %10s │\n",
+			amount := fmt.Sprintf("%.1f CHF", v.Amount)
+			fmt.Printf("│ %-4d │ %-10s │ %-28s │ %12s │\n",
 				v.ID, v.Date.Format("02/01/2006"), v.Description, amount)
 		}
-		fmt.Println("└──────┴────────────┴──────────────────────────────┴────────────┘")
+		fmt.Println("└──────┴────────────┴──────────────────────────────┴──────────────┘")
 
 	case "summary":
 		summaryCmd := flag.NewFlagSet("summary", flag.ExitOnError)
